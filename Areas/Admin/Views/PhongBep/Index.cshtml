@@ -1,0 +1,51 @@
+﻿@model IEnumerable<QLBH_MCDONALDS.Models.ChiTietHoaDon>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">Phòng bếp</strong>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-wrap">
+                @foreach (var group in Model.GroupBy(item => item.MaHoaDon))
+                {
+                    <div class="card border-warning mb-3 col-sm-3">
+                        <div class="card-header">Đơn đặt @group.Key</div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="col-8">Sản phẩm</th>
+                                        <th class="col-3">Số lượng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in group) { 
+                                        <tr>
+                                            <td>@Html.Encode(item.MaSP)</td>
+                                            <td>@item.SoLuongSP</td>
+                                        </tr>
+                                    }
+                                    
+                                </tbody>
+                            </table>
+
+                        </div>
+                        <div class="btn btn-warning rounded-pill mb-3">Phục vụ</div>
+                    </div>
+                }
+            </div>
+        </div> <!-- /.card-footer-->
+    </div><!-- /.card -->
+</section><!-- /.content -->

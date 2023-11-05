@@ -1,0 +1,101 @@
+﻿@model IEnumerable<QLBH_MCDONALDS.Models.ChiTietHoaDon>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    var total = 0;
+}
+@section header{
+    <style>
+        .card-4 {
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+            padding: 20px;
+        }
+    </style>
+}
+@section footer{
+    <script>
+        function printdiv(elem) {
+            var header_str = '<html><head><title>' + document.title + '</title></head><body>';
+            var footer_str = '</body></html>';
+            var new_str = document.getElementById(elem).innerHTML;
+            var old_str = document.body.innerHTML;
+            document.body.innerHTML = header_str + new_str + footer_str;
+            window.print();
+            document.body.innerHTML = old_str;
+            return false;
+        }
+    </script>    
+}
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">Báo cáo doanh thu</strong>
+                </div>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="row">
+                        <div class="col-8 row">
+                            <div class="col-6 text-center">
+                                <p>Chọn thời gian bắt đầu</p>
+                                <input name="start-date" type="date" class="form-control" value="@ViewBag.start" />
+                            </div>
+                            <div class="col-6 text-center">
+                                <p>Chọn thời gian kết thúc</p>
+                                <input name="end-date" type="date" class="form-control" value="@ViewBag.end" />
+                            </div>
+                        </div>
+                        <div class="col-3 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary">Báo cáo</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div><!-- /.card -->
+    <div class="card card-4">
+        <div class="card-header">
+            <div class="text-right">
+                <button class="btn btn-light" onclick="printdiv('print-content');">In <i class="fa fa-print"></i></button>
+            </div>
+        </div>
+        <div class="card-body" id="print-content">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Ngày</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Giá</th>
+                        <th scope="col">Thành tiền</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.GroupBy(x => new { x.SanPham.MaSP, x.SanPham.TenSP, x.HoaDon.NgayLapHD, x.SanPham.Gia }).OrderBy(x=>x.Key.NgayLapHD))
+                    {
+                    <tr>
+                        <th scope="row">@((item.Key.NgayLapHD)?.ToString("dd/MM/yyyy"))</th>
+                        <td>@item.Key.TenSP</td>
+                        <td>@item.Sum(x => x.SoLuongSP)</td>
+                        <td>@(((int)item.Key.Gia).ToString("N0"))</td>
+                        <td>@(((int)item.Sum(x => x.SoLuongSP * x.SanPham.Gia)).ToString("N0"))</td>
+                        @{ total += (int)item.Sum(x => x.SoLuongSP * x.SanPham.Gia);}
+                    </tr>
+                    }
+                    <tr>
+                        <td colspan="4" class="text-right"><h5><strong>Tổng doanh thu: </strong></h5></td>
+                        <td><h5><strong>@total.ToString("N0")</strong></h5></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section><!-- /.content -->
+

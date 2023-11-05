@@ -1,0 +1,51 @@
+﻿@{ var total = 0;}
+
+<div class="modal fade show" id="detail" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog show" role="document">
+        <div class="modal-content">
+            <div id="print-content">
+                <div class="text-center pt-5 pb-2 border-bottom">
+                    <h4>Hệ Thống Đặt Hàng Thức Ăn Nhanh</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between">
+                        <div>Mã hóa đơn: @ViewBag.HoaDon.MaHoaDon</div>
+                        <div style="cursor: pointer" onclick="printdiv('print-content');">
+                            <i class="fa fa-print"></i>
+                        </div>
+                    </div>
+                    <p>Ngày tạo: @ViewBag.HoaDon.NgayLapHD</p>
+                    <table class="table border-top-0" style="border-bottom: 3px solid black">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-center">Giá tiền</th>
+                                <th class="text-center">Số lượng</th>
+                                <th class="text-right">Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.ChiTietDon)
+                            {
+                                <tr>
+                                    <td>@item.SanPham.TenSP</td>
+                                    <td class="text-center">@item.SanPham.Gia</td>
+                                    <td class="text-center">@item.SoLuongSP</td>
+                                    <td class="text-right">@(((int)item.SanPham.Gia * item.SoLuongSP).ToString("N0"))</td>
+                                    @{total += (int)(item.SanPham.Gia * item.SoLuongSP);}
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                    <hr style="border-bottom: 3px solid black" />
+                    <h4 class="d-flex justify-content-between"><span>Tổng tiền</span><span>@total.ToString("N0")</span></h4>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="~/Admin/Hoadon" class="btn btn-secondary">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,40 @@
+﻿
+<div class="col-md-12 ">
+    <!--REVIEW ORDER-->
+    <div class="panel panel-default">
+        <div class="panel-heading text-center text-white">
+            <h4>Đơn hàng</h4>
+        </div>
+        <div class="panel-body" style="background: white;">
+            <table class="table border" style="height: 50vh; overflow-y: scroll;">
+                <thead>
+                    <tr>
+                        <td class="text-center">Sản phẩm</td>
+                        <td class="text-center">Giá tiền</td>
+                        <td class="text-center">Số lượng</td>
+                        <td class="text-right">Thành tiền</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewData["listOrdered"] as IEnumerable<QLBH_MCDONALDS.Models.SanPham>)
+                    {
+                        <tr>
+                            <td class="text-center">@item.TenSP</td>
+                            <td class="text-center">@item.Gia VNĐ</td>
+                            <td class="text-center">1</td>
+                            <td class="text-right">$32.99</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="col-md-12 text-right">
+                <strong>Tổng tiền</strong>
+                <div class="pull-right"><span>$</span><span>200.00</span></div>
+            </div>
+            <button type="button" class="btn btn-primary rounded-0 btn-lg btn-block">Đặt hàng</button>
+
+        </div>
+
+    </div>
+    <!--REVIEW ORDER END-->
+</div>

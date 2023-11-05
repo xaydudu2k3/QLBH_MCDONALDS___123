@@ -1,0 +1,55 @@
+﻿@model IEnumerable<QLBH_MCDONALDS.Models.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">ĐẶT HÀNG</strong>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-7">
+                    <div>
+                        <h4>Loại hàng</h4>
+                        <div class="d-flex" style="overflow-x:scroll">
+                            <a href="@Url.Action("Index", "POS", new { @id = "All"})" class="rounded-pill text-center border" style="min-width: 100px; margin: 5px; padding: 5px 10px; background: #d7d4bf3d; cursor:pointer">Tất cả</a>
+                            @foreach (var item in new QLBH_MCDONALDS.Models.QLCuaHangMcDonaldEntities().LoaiSPs.ToList())
+                            {
+                                <a href="@Url.Action("Index", "POS", new { @id = item.MaLoai})" class="rounded-pill text-center border" style="min-width: 100px; margin: 5px; padding: 5px 10px; background: #d7d4bf3d; cursor:pointer">@item.TenLoai</a>
+                            }
+                        </div>
+                    </div>
+                    <div>
+                        <h4>Danh sách sản phẩm</h4>
+                        <div class="d-flex flex-row col-12 flex-wrap">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-sm-2 rounded-pill text-center border" style="margin: 5px; padding: 5px 10px; background: #d7d4bf3d; cursor:pointer">
+                                    <strong>@item.TenSP</strong>
+                                    <div class="divider border-top"></div>
+                                    @item.Gia VNĐ
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    </div>
+                <div class="col-md-5 p-2 rounded" style="background: grey;">
+                    @Html.Partial("_PartialOrder", ViewData["listOrdered"])
+                </div>
+            </div>
+        </div> <!-- /.card-footer-->
+    </div><!-- /.card -->
+</section><!-- /.content -->
+
