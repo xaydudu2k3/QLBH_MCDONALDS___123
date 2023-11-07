@@ -136,6 +136,7 @@
     <Compile Include="Areas\Admin\Controllers\DonNhapHangsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HoaDonController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoaiSanPhamController.cs" />
+    <Compile Include="Areas\Admin\Controllers\NguyenLieuxController.cs" />
     <Compile Include="Areas\Admin\Controllers\NhaCungCapsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PhongBepController.cs" />
     <Compile Include="Areas\Admin\Controllers\POSController.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Models\DanhMucCheBien.cs">
       <DependentUpon>ModelQLBH.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Donhang.cs" />
     <Compile Include="Models\DonNhapHang.cs">
       <DependentUpon>ModelQLBH.tt</DependentUpon>
     </Compile>
@@ -2751,6 +2753,11 @@
     <Content Include="Areas\Admin\Views\HoaDon\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDon\Index.cshtml" />
     <Content Include="Areas\Admin\Views\HoaDon\_ModalDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\NguyenLieux\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\NguyenLieux\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\NguyenLieux\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\NguyenLieux\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\NguyenLieux\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -10,50 +10,26 @@
 <div>
     <h4>SanPham</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenSP)
-        </dt>
+    <table class="table">
+        <tr>
+            <th>Tên nguyên liệu</th>
+            <th>Đơn vị chuyển đổi</th>
+            <th></th>
+        </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.TenSP)
-        </dd>
+        @foreach (var chiTiet in Model.DanhMucCheBiens)
+        {
+            <tr>
+                <td>
+                    @chiTiet.NguyenLieu.TenNL
+                </td>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Gia)
-        </dt>
+                <td>@chiTiet.DonViChuyenDoi</td>
+            </tr>
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.Gia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoLuong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoLuong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DonViTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DonViTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LoaiSP.TenLoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LoaiSP.TenLoai)
-        </dd>
-
-    </dl>
+    </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaSP }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

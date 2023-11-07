@@ -1,30 +1,31 @@
 ﻿@model QLBH_MCDONALDS.Models.DonNhapHang
-@model QLBH_MCDONALDS.Models.ChiTietDonNhapHang
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
+
+
 <h2>Details</h2>
 
-<h2>Chi tiết Đơn hàng @Model.Madh</h2>
-<table>
+<h2>Chi tiết Đơn hàng @Model.MaDonHang</h2>
+<table class="table">
     <tr>
-        <th>Mã sản phẩm</th>
         <th>Tên sản phẩm</th>
         <th>Số lượng</th>
+        <th></th>
     </tr>
-    @foreach (var chiTiet in Model.ChiTietDonHangs)
+
+    @foreach (var chiTiet in Model.ChiTietDonNhapHangs)
     {
         <tr>
-            <td>@chiTiet.SanPham.Masp</td>
-            <td>@chiTiet.SanPham.Tensp</td>
-            <td>@chiTiet.Soluong</td>
+            <td>
+                @chiTiet.NguyenLieu.TenNL
+            </td>
+            
+            <td>@chiTiet.NguyenLieu.SoLuong</td>
         </tr>
     }
+
 </table>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDonHang }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

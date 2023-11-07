@@ -36,15 +36,21 @@
                         <div class="d-flex flex-row col-12 flex-wrap">
                             @foreach (var item in Model)
                             {
-                                <div class="col-sm-2 rounded-pill text-center border" style="margin: 5px; padding: 5px 10px; background: #d7d4bf3d; cursor:pointer">
+                               
+                                <a href="@Url.Action("Index", "POS", new { @MaSp = @item.MaSP})" class="col-sm-2 rounded-pill text-center border"
+                                   style="margin: 5px; padding: 5px 10px; background: #d7d4bf3d; cursor:pointer"
+                                   onclick="them_sp('@item.MaSP')">
                                     <strong>@item.TenSP</strong>
                                     <div class="divider border-top"></div>
                                     @item.Gia VNĐ
-                                </div>
+                                </a>
                             }
+
+
+
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div class="col-md-5 p-2 rounded" style="background: grey;">
                     @Html.Partial("_PartialOrder", ViewData["listOrdered"])
                 </div>
@@ -53,3 +59,15 @@
     </div><!-- /.card -->
 </section><!-- /.content -->
 
+
+<script>
+    function them_sp(productId) {
+        // Chuyển người dùng đến trang khác với ID của sản phẩm
+        // Thay đổi đường dẫn (URL) dựa trên productId
+        
+        List < string > tempList = myArray.ToList(); // Chuyển mảng thành danh sách để dễ thao tác
+        tempList.Add(productId); // Thêm phần tử vào danh sách
+        myArray = tempList.ToArray(); // Chuyển danh sách thành mảng trở lại
+        window.location.href = '/Product/Detail/' + productId;
+    }
+</script>

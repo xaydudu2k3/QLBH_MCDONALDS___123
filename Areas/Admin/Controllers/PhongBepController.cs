@@ -15,5 +15,12 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
         {
             return View(db.ChiTietHoaDons.ToList());
         }
+        public ActionResult Serve(string id)
+        {
+            HoaDon hoaDon = db.HoaDons.Find(id);
+            hoaDon.TrangThai = 1;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

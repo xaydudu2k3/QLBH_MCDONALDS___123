@@ -15,35 +15,47 @@
                     <strong class="text-danger">Phòng bếp</strong>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong class="text-danger">
+                    </strong>
+                </div>
+            </div>
         </div>
         <div class="card-body">
             <div class="d-flex flex-wrap">
-                @foreach (var group in Model.GroupBy(item => item.MaHoaDon))
+                @foreach (var items in Model.GroupBy(item => new { item.MaHoaDon, item.HoaDon.TrangThai }))
                 {
-                    <div class="card border-warning mb-3 col-sm-3">
-                        <div class="card-header">Đơn đặt @group.Key</div>
-                        <div class="card-body">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th class="col-8">Sản phẩm</th>
-                                        <th class="col-3">Số lượng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in group) { 
+                    if (items.Key.TrangThai == 0)
+                    {
+                        <div class="card border-warning mb-3 col-sm-3">
+                            <div class="card-header">Đơn đặt @items.Key.MaHoaDon</div>
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                    <thead>
                                         <tr>
-                                            <td>@Html.Encode(item.MaSP)</td>
-                                            <td>@item.SoLuongSP</td>
+                                            <th class="col-8">Sản phẩm</th>
+                                            <th class="col-3">Số lượng</th>                                            
                                         </tr>
-                                    }
-                                    
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in items)
+                                        {
+                                            <tr>
+                                                <td>@item.SanPham.TenSP</td>
+                                                <td>@item.SoLuongSP</td>
+                                            </tr>
+                                        }
 
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <form action="@Url.Action("Serve", "PhongBep", new { id = items.Key.MaHoaDon })" method="post">
+                                <button type="submit" class="btn btn-warning rounded-pill mb-3" name="submit">Phục vụ</button>
+                            </form>
                         </div>
-                        <div class="btn btn-warning rounded-pill mb-3">Phục vụ</div>
-                    </div>
+                    }
                 }
             </div>
         </div> <!-- /.card-footer-->
