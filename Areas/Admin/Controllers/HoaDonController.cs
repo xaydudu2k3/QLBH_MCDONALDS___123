@@ -29,7 +29,7 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
                 ViewBag.show = false;
             }
             HoaDon ct = db.HoaDons.Find(id);
-            if(ct == null)
+            if (ct == null)
             {
                 ViewBag.show = false;
             }
@@ -38,32 +38,23 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
                 ViewBag.show = true;
                 ViewBag.HoaDon = ct;
                 ViewBag.ChiTietDon = db.ChiTietHoaDons.Where(x => x.MaHoaDon == ct.MaHoaDon)
-                    .Include(x=>x.SanPham).ToList();
+                    .Include(x => x.SanPham).ToList();
             }
             var list = db.ChiTietHoaDons.Include(x => x.SanPham).Include(x => x.HoaDon).ToList();
             return View(list);
         }
-        // GET: Admin/HoaDon/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            HoaDon hoaDon = db.HoaDons.Find(id);
-            if (hoaDon == null)
-            {
-                return HttpNotFound();
-            }
-            return View(hoaDon);
-        }
 
-        // POST: Admin/HoaDon/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Admin/HoaDon/DeleteConfirmed/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
             HoaDon hoaDon = db.HoaDons.Find(id);
+            var cthd = db.ChiTietHoaDons.Where(x => x.MaHoaDon == hoaDon.MaHoaDon).ToList();
+            foreach (var item in cthd)
+            {
+                db.ChiTietHoaDons.Remove(item);
+            }
             db.HoaDons.Remove(hoaDon);
             db.SaveChanges();
             return RedirectToAction("Index");

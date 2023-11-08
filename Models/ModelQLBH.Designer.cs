@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\LY\NTU\Nam3_HK1\PTTKHTTT\Project\QLBH_MCDONALDS\Models\ModelQLBH.edmx'. 
+﻿// T4 code generation is enabled for model 'D:\nam3\pttk_httt\New folder\QLBH_MCDONALDS-master\Models\ModelQLBH.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

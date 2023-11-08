@@ -23,19 +23,19 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="d-flex flex-wrap">
+            <div class="d-flex flex-wrap justify-content-around">
                 @foreach (var items in Model.GroupBy(item => new { item.MaHoaDon, item.HoaDon.TrangThai }))
                 {
                     if (items.Key.TrangThai == 0)
                     {
-                        <div class="card border-warning mb-3 col-sm-3">
+                        <div class="card border-warning mb-3 col-sm-4">
                             <div class="card-header">Đơn đặt @items.Key.MaHoaDon</div>
                             <div class="card-body">
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th class="col-8">Sản phẩm</th>
-                                            <th class="col-3">Số lượng</th>                                            
+                                            <th class="col-4">Số lượng</th>                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,7 +51,7 @@
                                 </table>
 
                             </div>
-                            <form action="@Url.Action("Serve", "PhongBep", new { id = items.Key.MaHoaDon })" method="post">
+                            <form action="@Url.Action("Serve", "PhongBep", new { id = items.Key.MaHoaDon })" method="post" class="center-block">
                                 <button type="submit" class="btn btn-warning rounded-pill mb-3" name="submit">Phục vụ</button>
                             </form>
                         </div>

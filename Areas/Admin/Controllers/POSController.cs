@@ -76,7 +76,7 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
                     };
                     retrieveobject.Add(san_p);
                     Session["MyArray"] = retrieveobject;
-                    
+
                 }
             }
             ViewData["listOrdered"] = Session["MyArray"];
@@ -103,7 +103,7 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
                 {
                     retrieveobject.Remove(donhangToRemove);
                     Session["MyArray"] = retrieveobject;
-                    
+
                 }
                 ViewData["listOrdered"] = retrieveobject;
             }
@@ -111,6 +111,43 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
 
             return RedirectToAction("Index");
 
+
+        }
+        string LayMaHD()
+        {
+            var maMax = db.HoaDons.ToList().Select(n => n.MaHoaDon).Max();
+            int maHD = int.Parse(maMax.Substring(2)) + 1;
+            string HD = String.Concat("000", maHD.ToString());
+            return HD.Substring(maHD.ToString().Length - 1);
+        }
+        /// //////////////////////////////////////////////////////////////////
+        //THÊM ĐƠN HÀNG VÀO HÓA ĐƠN & CHI TIẾT HÓA ĐƠN
+        [HttpPost]
+        public ActionResult Index(string submit)
+        {
+            if (submit == "order" && Session["MyArray"] != null)
+            {
+                HoaDon hd = new HoaDon();
+                hd.MaHoaDon = LayMaHD();
+                hd.TrangThai = 0;
+                hd.NgayLapHD = DateTime.Now;
+                db.HoaDons.Add(hd);
+                db.SaveChanges();
+                foreach (var item in Session["MyArray"] as IEnumerable<Donhang>)
+                {
+
+                    ChiTietHoaDon ct = new ChiTietHoaDon();
+                    ct.MaHoaDon = hd.MaHoaDon;
+                    ct.MaSP = item.ma_san_pham;
+                    ct.SoLuongSP = item.soluong;
+                    db.ChiTietHoaDons.Add(ct);
+                }
+                db.SaveChanges();
+                TempData["SuccessMessage"] = "Thanh toán thành công!";
+                Session["MyArray"] = null;
+                ViewData["listOrdered"] = null;
+            }
+            return RedirectToAction("Index");
         }
     }
 }

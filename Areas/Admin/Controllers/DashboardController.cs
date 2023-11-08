@@ -23,7 +23,7 @@ namespace QLBH_MCDONALDS.Areas.Admin.Controllers
             ViewBag.SL_HangDoiHD = new SelectList(db.HoaDons.Where(h => h.TrangThai == 0), "MaHoaDon");
             ViewBag.soHangDoi = db.HoaDons.Count(h => h.TrangThai == 0);
 
-            DateTime ngayHomNay = DateTime.Now;
+            DateTime ngayHomNay = DateTime.Today;
 
             var tongSoTien = (from hd in db.HoaDons
                               join chd in db.ChiTietHoaDons on hd.MaHoaDon equals chd.MaHoaDon

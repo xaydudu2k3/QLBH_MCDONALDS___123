@@ -1,7 +1,7 @@
 ﻿
 @{
     int sum = 0;
-}  
+}
 
 <div class="col-md-12 ">
     <!--REVIEW ORDER-->
@@ -25,30 +25,39 @@
                     {
                         foreach (var item in ViewData["listOrdered"] as IEnumerable<QLBH_MCDONALDS.Models.Donhang>)
                         {
-                            decimal totalAmount = 0;
                             decimal itemTotal = item.soluong * item.gia; // Tính tổng tiền của sản phẩm hiện tại
-                           
+
                             <tr>
                                 <td class="text-center">@item.san_pham</td>
                                 <td class="text-center">@item.gia VNĐ</td>
                                 <td class="text-center">@item.soluong</td>
                                 <td class="text-right">@itemTotal VND</td>
-                                <td> 
+                                <td>
                                     <a href="@Url.Action("Delete_sp", "POS", new { MaSp = item.ma_san_pham })" class="btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                                 </td>
 
                             </tr>
-                            sum += (int) itemTotal;
+                            sum += (int)itemTotal;
                         }
                     }
 
                 </tbody>
             </table>
+            
             <div class="col-md-12 text-right">
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+                }
                 <strong>Tổng tiền</strong>
                 <div class="pull-right"><span>@sum VND </span></div>
             </div>
-            <button type="button" class="btn btn-primary rounded-0 btn-lg btn-block">Đặt hàng</button>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input name="submit" value="order" hidden />
+                <button type="submit" class="btn btn-primary rounded-0 btn-lg btn-block">Đặt hàng</button>
+            }
 
         </div>
 
